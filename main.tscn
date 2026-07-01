@@ -1,26 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://cd78iqjhr0wvr"]
+[gd_scene load_steps=3 format=3 uid="uid://cd78iqjhr0wvr"]
 
 [ext_resource type="PackedScene" uid="uid://36pgg0xs72pc" path="res://player.tscn" id="1_m4ux6"]
 [ext_resource type="Script" path="res://RoomBounds.cs" id="2_opkuq"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qgrlg"]
-size = Vector2(360, 20)
 
 [node name="Main" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_m4ux6")]
 position = Vector2(27, 18)
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(180, 151)
-shape = SubResource("RectangleShape2D_qgrlg")
-
-[node name="ColorRect" type="ColorRect" parent="StaticBody2D"]
-offset_top = 141.0
-offset_right = 360.0
-offset_bottom = 161.0
 
 [node name="RoomBounds" type="Node2D" parent="."]
 script = ExtResource("2_opkuq")
