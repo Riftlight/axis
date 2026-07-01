@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2ra1xlfu5qlq"]
+
+[ext_resource type="Script" path="res://Block.cs" id="1_hsfgp"]
+
+[node name="StaticBody2D" type="StaticBody2D"]
+script = ExtResource("1_hsfgp")

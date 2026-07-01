@@ -10,3 +10,4 @@ position = Vector2(27, 18)
 
 [node name="RoomBounds" type="Node2D" parent="."]
 script = ExtResource("2_opkuq")
+DesignSize = Vector2(960, 540)
