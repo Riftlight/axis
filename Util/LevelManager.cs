@@ -3,36 +3,36 @@ using Godot;
 
 public partial class LevelManager : Node
 {
-    public static LevelManager Instance { get; private set; }
+	public static LevelManager Instance { get; private set; }
 
-    private readonly string[] _levels =
-    {
-        "res://Levels/Level1.tscn"
-    };
+	private readonly string[] _levels =
+	{
+		"res://Levels/Level1.tscn"
+	};
 
-    private int _currentIndex = 0;
+	private int _currentIndex = 0;
 
-    public override void _Ready()
-    {
-        Instance = this;
-        LoadNextLevel();
-    }
+	public override void _Ready()
+	{
+		Instance = this;
+		LoadNextLevel();
+	}
 
-    public void LoadNextLevel()
-    {
-        _currentIndex++;
-        _currentIndex %= _levels.Length;
-        GetTree().ChangeSceneToFile(_levels[_currentIndex]);
-    }
+	public void LoadNextLevel()
+	{
+		_currentIndex++;
+		_currentIndex %= _levels.Length;
+		GetTree().ChangeSceneToFile(_levels[_currentIndex]);
+	}
 
-    public void RestartLevel()
-    {
-        GetTree().ChangeSceneToFile(_levels[_currentIndex]);
-    }
+	public void RestartLevel()
+	{
+		GetTree().ChangeSceneToFile(_levels[_currentIndex]);
+	}
 
-    public void LoadLevel(int index)
-    {
-        _currentIndex = Mathf.Clamp(index, 0, _levels.Length - 1);
-        GetTree().ChangeSceneToFile(_levels[_currentIndex]);
-    }
+	public void LoadLevel(int index)
+	{
+		_currentIndex = Mathf.Clamp(index, 0, _levels.Length - 1);
+		GetTree().ChangeSceneToFile(_levels[_currentIndex]);
+	}
 }
