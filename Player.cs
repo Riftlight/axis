@@ -3,6 +3,7 @@ using Godot;
 public partial class Player : CharacterBody2D
 {
 	[Export] public float GravityStrength = 1400f; // per second
+	[Export] public float Friction = 800f;
 	[Export] public float MaxSpeed = 1000f;
 	[Export] public Vector2 BodySize = new Vector2(28, 28);
 
@@ -10,19 +11,39 @@ public partial class Player : CharacterBody2D
 
 	public override void _Ready()
 	{
-		UpDirection = -_gravityDir;
+		this.TopLevel = true; // render over other things, mostly for arrow
+		this.UpDirection = -_gravityDir;
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
 		Velocity += _gravityDir * GravityStrength * (float)delta;
 		Velocity = Velocity.LimitLength(MaxSpeed);
+		
+		// Friction
+		if (IsGrounded())
+		{
+			// GD.Print(" on flooor ! " + _gravityDir);
+			Vector2 surfaceDir = new Vector2(-_gravityDir.Y, _gravityDir.X);
+			float lateralSpeed = Velocity.Dot(surfaceDir);
+			float lessened = Mathf.MoveToward(lateralSpeed, 0f, Friction*(float) delta);
+			Velocity += surfaceDir * (lessened - lateralSpeed);
+		}
+
 		MoveAndSlide();
 	}
 
 	public override void _Process(double delta)
 	{
 		QueueRedraw(); // todo
+	}
+
+	private bool IsGrounded()
+	{
+		for (int i = 0; i < GetSlideCollisionCount(); i++)
+			if (GetSlideCollision(i).GetNormal().Dot(-_gravityDir) > 0.7f) // 0.7 is approx cos(45deg), could lower threshold but should work fine on everything AA
+				return true;
+		return false;
 	}
 
 	public override void _Input(InputEvent @event)

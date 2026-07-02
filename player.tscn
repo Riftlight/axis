@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://Player.cs" id="1_vj4ym"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_taus7"]
+size = Vector2(28, 28)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_vj4ym")
