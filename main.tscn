@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cd78iqjhr0wvr"]
 
 [ext_resource type="PackedScene" uid="uid://36pgg0xs72pc" path="res://player.tscn" id="1_m4ux6"]
-[ext_resource type="Script" path="res://RoomBounds.cs" id="2_opkuq"]
+[ext_resource type="Script" path="res://Util/RoomBounds.cs" id="2_opkuq"]
 
 [node name="Main" type="Node2D"]
 
