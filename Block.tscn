@@ -1,6 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://d2ra1xlfu5qlq"]
+[gd_scene load_steps=2 format=3 uid="uid://bs8vg87p85m1u"]
 
-[ext_resource type="Script" path="res://Block.cs" id="1_hsfgp"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7yit5"]
+size = Vector2(2, 2)
 
 [node name="StaticBody2D" type="StaticBody2D"]
-script = ExtResource("1_hsfgp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_7yit5")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0.25098, 0.25098, 0.321569, 1)
+polygon = PackedVector2Array(-0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, 0.5)
