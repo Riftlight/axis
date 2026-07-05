@@ -11,6 +11,7 @@
 position = Vector2(46, 602)
 
 [node name="RoomBounds" type="Node2D" parent="."]
+top_level = true
 script = ExtResource("2_atacy")
 
 [node name="leftwall" parent="." instance=ExtResource("3_r0hij")]

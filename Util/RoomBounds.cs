@@ -13,6 +13,7 @@ public partial class RoomBounds : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		this.TopLevel = true;
 		if (Engine.IsEditorHint()) return; // dont spawn real walls while just inside editor
 
 		Vector2 viewport = GetViewportRect().Size;
