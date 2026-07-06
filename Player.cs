@@ -30,7 +30,14 @@ public partial class Player : CharacterBody2D
 			Velocity += surfaceDir * (lessened - lateralSpeed);
 		}
 
+		Vector2 preSlideVelocity = Velocity;
 		MoveAndSlide();
+		for (int i = 0; i < GetSlideCollisionCount(); i++)
+		{
+			KinematicCollision2D coll = GetSlideCollision(i);
+			if (coll.GetCollider() is Breakable breakable)
+				breakable.PlayerHit(preSlideVelocity, coll.GetNormal());
+		}
 	}
 
 	public override void _Process(double delta)
