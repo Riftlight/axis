@@ -7,9 +7,6 @@
 
 [node name="Level1" type="Node2D"]
 
-[node name="Player" parent="." instance=ExtResource("1_nt168")]
-position = Vector2(46, 602)
-
 [node name="RoomBounds" type="Node2D" parent="."]
 top_level = true
 script = ExtResource("2_atacy")
@@ -24,7 +21,8 @@ scale = Vector2(190.571, 454.316)
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(1096, 97)
-scale = Vector2(-1.53622, 4.05189)
+rotation = 3.14159
+scale = Vector2(1.53622, -4.05189)
 script = ExtResource("4_s7sxb")
 
 [node name="ColorRect" type="ColorRect" parent="Area2D"]
@@ -33,3 +31,6 @@ offset_top = -16.0
 offset_right = 16.0
 offset_bottom = 16.0
 metadata/_edit_use_anchors_ = true
+
+[node name="Player" parent="." instance=ExtResource("1_nt168")]
+position = Vector2(64.0001, 581)
