@@ -17,6 +17,8 @@ public partial class Player : CharacterBody2D
 	private float _squishY = 1f;
 	private Tween _squishTween;
 	private bool _wasGrounded = false;
+	
+	private float _currentYScale = 1f;
 
 	public override void _Ready()
 	{
@@ -84,6 +86,7 @@ public partial class Player : CharacterBody2D
 			* _squishY;
 		float xScale = 1f / yScale;
 
+		_currentYScale = yScale;
 		_sprite.Scale = new Vector2(_spriteSize * xScale, _spriteSize * yScale);
 
 		float halfExtent = _collHalfSize.Dot(_gravityDir.Abs());
@@ -142,17 +145,27 @@ public partial class Player : CharacterBody2D
 
 	public override void _Draw()
 	{
-		// player body
-		// DrawRect(new Rect2(-BodySize / 2.0f, BodySize), new Color(0.3f, 0.75f, 1f));
-
 		// gravity arrow
 		Vector2 dir = GetTargetGravityDir();
-		Vector2 start = dir * (BodySize.Length() / 2.0f);
-		Vector2 tip = dir * 50f;
+		float inGravity = dir.Dot(_gravityDir); // 1 = floor, -1 = ceiling, 0 = horiz
+
+		// pixel distance from tex center to visual slime edge
+		float hangPx;
+		Vector2 arrowOrigin = _sprite.Position;
+		if (inGravity > 0.5f) 
+			hangPx = 8f * _currentYScale;
+		else if (inGravity < -0.5f) 
+			hangPx = 3f * _currentYScale;
+		else 
+		{
+			hangPx = 7f * (1f / _currentYScale);
+			arrowOrigin = _sprite.Position + _gravityDir * (2.5f * _spriteSize); // 2.5f being the offset from tex center to visual slime center
+		}
+		Vector2 start = arrowOrigin + dir * (hangPx*_spriteSize);
+		Vector2 tip = start + dir * 30f;
+		
 		Color arrowColor = new Color(1f, 0.9f, 0.2f);
-
 		DrawLine(start, tip, arrowColor, 4f);
-
 		Vector2 off = dir.Rotated(Mathf.Pi / 2f) * 8f;
 		DrawLine(tip, tip - dir*14f + off, arrowColor, 4f);
 		DrawLine(tip, tip - dir*14f - off, arrowColor, 4f);
