@@ -3,4 +3,8 @@
 /android/
 addons/
 
+.stfolder/
+
+*.old
+
 .wakatime-project
