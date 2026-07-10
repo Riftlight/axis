@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://oi727eq8tgfc"]
 
-[ext_resource type="PackedScene" uid="uid://c2vkx5ok0u4ef" path="res://Util/SwitchUI.tscn" id="1_2qv2g"]
-[ext_resource type="PackedScene" uid="uid://dy1twhy7g34ag" path="res://Util/SwitchCounter.tscn" id="2_0sogr"]
+[ext_resource type="PackedScene" uid="uid://c2vkx5ok0u4ef" path="res://Util/SwitchControl/SwitchUI.tscn" id="1_2qv2g"]
+[ext_resource type="PackedScene" uid="uid://dy1twhy7g34ag" path="res://Util/SwitchControl/SwitchCounter.tscn" id="2_0sogr"]
 [ext_resource type="PackedScene" uid="uid://36pgg0xs72pc" path="res://player.tscn" id="3_5brs8"]
 [ext_resource type="Script" uid="uid://b14uw8ddioqm3" path="res://Util/RoomBounds.cs" id="4_qgpl5"]
 

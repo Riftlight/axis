@@ -1,9 +1,8 @@
 using Godot;
-using System;
 
 public partial class SwitchUi : CanvasLayer
 {
-	[Export] public bool SwitchesAreLimited;
+	[Export] public bool SwitchesAreLimited = true;
 	private Label label;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()

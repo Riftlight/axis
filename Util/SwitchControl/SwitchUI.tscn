@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://c2vkx5ok0u4ef"]
+
+[ext_resource type="Script" uid="uid://cfsn8budnm3ax" path="res://Util/SwitchControl/SwitchUi.cs" id="1_5chsk"]
+
+[node name="SwitchUi" type="CanvasLayer" unique_id=1663141437]
+script = ExtResource("1_5chsk")
+
+[node name="Label" type="Label" parent="." unique_id=1450932507]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "test!"

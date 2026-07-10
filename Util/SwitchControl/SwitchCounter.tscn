@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dy1twhy7g34ag"]
+
+[ext_resource type="Script" uid="uid://babmybtk8smqw" path="res://Util/SwitchControl/SwitchCounter.cs" id="1_q8x15"]
+
+[node name="Node2D" type="Node2D" unique_id=2125283978]
+script = ExtResource("1_q8x15")

@@ -1,6 +1,4 @@
 using Godot;
-using System;
-using System.ComponentModel;
 
 public partial class SwitchCounter : Node2D
 {
