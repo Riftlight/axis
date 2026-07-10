@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://oi727eq8tgfc"]
+
+[ext_resource type="PackedScene" uid="uid://c2vkx5ok0u4ef" path="res://Util/SwitchUI.tscn" id="1_2qv2g"]
+[ext_resource type="PackedScene" uid="uid://dy1twhy7g34ag" path="res://Util/SwitchCounter.tscn" id="2_0sogr"]
+[ext_resource type="PackedScene" uid="uid://36pgg0xs72pc" path="res://player.tscn" id="3_5brs8"]
+[ext_resource type="Script" uid="uid://b14uw8ddioqm3" path="res://Util/RoomBounds.cs" id="4_qgpl5"]
+
+[node name="Level4" type="Node2D" unique_id=1444784318]
+
+[node name="SwitchUi" parent="." unique_id=1663141437 instance=ExtResource("1_2qv2g")]
+
+[node name="SwitchCounter" parent="." unique_id=2079933942 instance=ExtResource("2_0sogr")]
+Limit = 10
+
+[node name="Player" parent="." unique_id=928024153 node_paths=PackedStringArray("switchCounter", "switchUi") instance=ExtResource("3_5brs8")]
+position = Vector2(95, 71)
+switchCounter = NodePath("../SwitchCounter")
+switchUi = NodePath("../SwitchUi")
+
+[node name="RoomBounds" type="Node2D" parent="." unique_id=912340891]
+top_level = true
+script = ExtResource("4_qgpl5")
