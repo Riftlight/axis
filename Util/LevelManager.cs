@@ -7,7 +7,9 @@ public partial class LevelManager : Node
 
 	private readonly string[] _levels =
 	{
-		"res://Levels/Level1.tscn"
+		"res://Levels/Level1.tscn",
+		"res://Levels/Level2.tscn",
+		"res://Levels/Level3.tscn"
 	};
 
 	private int _currentIndex = 0;
@@ -15,7 +17,7 @@ public partial class LevelManager : Node
 	public override void _Ready()
 	{
 		Instance = this;
-		LoadNextLevel();
+		LoadLevel(0);
 	}
 
 	public void LoadNextLevel()

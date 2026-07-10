@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://d4kwmg4vnin8e"]
+
+[ext_resource type="Script" uid="uid://b14uw8ddioqm3" path="res://Util/RoomBounds.cs" id="1_7if8h"]
+[ext_resource type="PackedScene" uid="uid://bs8vg87p85m1u" path="res://Util/Block.tscn" id="2_llagq"]
+[ext_resource type="PackedScene" uid="uid://c6hhn20dott57" path="res://Util/Hazard.tscn" id="3_ju3xh"]
+[ext_resource type="PackedScene" uid="uid://36pgg0xs72pc" path="res://player.tscn" id="4_m3wss"]
+[ext_resource type="PackedScene" uid="uid://csuq610a8abg1" path="res://Util/Breakable.tscn" id="4_yjrnu"]
+[ext_resource type="Script" uid="uid://cqa1obwnsehtk" path="res://Util/Goal.cs" id="6_qq0sj"]
+
+[node name="Level3" type="Node2D" unique_id=2116159715]
+metadata/_edit_horizontal_guides_ = [449.0, 505.0, 320.0]
+metadata/_edit_vertical_guides_ = [727.0, 824.0]
+
+[node name="tophaz" parent="." unique_id=1866579684 instance=ExtResource("3_ju3xh")]
+position = Vector2(364, 335)
+rotation = 3.14159
+scale = Vector2(1.23156, -11.364)
+
+[node name="StaticBody2D" parent="." unique_id=747873932 instance=ExtResource("2_llagq")]
+position = Vector2(105, 324)
+scale = Vector2(147.975, 250)
+
+[node name="goal" type="Area2D" parent="." unique_id=1875713680]
+position = Vector2(774, 604)
+rotation = 3.14159
+scale = Vector2(3.28533, -0.706994)
+script = ExtResource("6_qq0sj")
+
+[node name="ColorRect" type="ColorRect" parent="goal" unique_id=1144096167]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+metadata/_edit_use_anchors_ = true
+
+[node name="StaticBody2D5" parent="." unique_id=1502949945 instance=ExtResource("2_llagq")]
+position = Vector2(169, 72)
+scale = Vector2(-289.123, 91.9659)
+
+[node name="StaticBody2D3" parent="." unique_id=1559760410 instance=ExtResource("2_llagq")]
+position = Vector2(185, 609)
+scale = Vector2(339.654, 40.9935)
+
+[node name="StaticBody2D4" parent="." unique_id=1426168662 instance=ExtResource("2_llagq")]
+position = Vector2(333, 577)
+scale = Vector2(38.6299, 82.4004)
+
+[node name="bothaz" parent="." unique_id=1611931986 instance=ExtResource("3_ju3xh")]
+position = Vector2(364, 619)
+rotation = -3.14159
+scale = Vector2(1.23156, -11.364)
+
+[node name="StaticBody2D2" parent="." unique_id=305562266 instance=ExtResource("2_llagq")]
+position = Vector2(363, 179)
+scale = Vector2(179.6, 298.114)
+
+[node name="Player" parent="." unique_id=300765408 instance=ExtResource("4_m3wss")]
+position = Vector2(62, 165)
+
+[node name="Breakable" parent="." unique_id=128210615 instance=ExtResource("4_yjrnu")]
+position = Vector2(749, 534)
+scale = Vector2(10, 1)
+
+[node name="RoomBounds" type="Node2D" parent="." unique_id=1676310279]
+top_level = true
+script = ExtResource("1_7if8h")
+
+[node name="StaticBody2D6" parent="." unique_id=926008321 instance=ExtResource("2_llagq")]
+position = Vector2(552, 588)
+scale = Vector2(350, 128)
+
+[node name="StaticBody2D7" parent="." unique_id=770113900 instance=ExtResource("2_llagq")]
+position = Vector2(974, 588)
+scale = Vector2(300, 128)
+
+[node name="StaticBody2D8" parent="." unique_id=300656047 instance=ExtResource("2_llagq")]
+position = Vector2(845, 207)
+scale = Vector2(-43.751, 225)
+
+[node name="StaticBody2D9" parent="." unique_id=74568608 instance=ExtResource("2_llagq")]
+position = Vector2(706, 151)
+scale = Vector2(-43.751, 337.171)
