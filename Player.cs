@@ -7,6 +7,9 @@ public partial class Player : CharacterBody2D
 	[Export] public float MaxSpeed = 1500f;
 	[Export] public Vector2 BodySize = new Vector2(28, 28);
 
+	[Export] public SwitchCounter switchCounter;
+	[Export] public SwitchUi switchUi;
+
 	private Vector2 _gravityDir = Vector2.Down;
 
 	private Sprite2D _sprite;
@@ -31,6 +34,9 @@ public partial class Player : CharacterBody2D
 		CollisionShape2D collShape = GetNode<CollisionShape2D>("CollisionShape2D");
 		_collCenter = collShape.Position;
 		_collHalfSize = ((RectangleShape2D)collShape.Shape).Size / 2f;
+
+		if (switchUi != null && switchCounter != null)
+			switchUi.UpdateSwitches(switchCounter.GetRemaining());
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -126,11 +132,18 @@ public partial class Player : CharacterBody2D
 
 	private void FlipGravity()
 	{
+		if (switchUi != null && switchCounter != null && switchCounter.GetRemaining() == 0) return;
+
 		Vector2 newDir = GetTargetGravityDir();
 		if (newDir == _gravityDir) return;
 
 		_gravityDir = newDir;
 		UpDirection = -_gravityDir;
+		if (switchUi != null && switchCounter != null)
+		{
+			switchCounter.Switched();
+			switchUi.UpdateSwitches(switchCounter.GetRemaining());
+		}
 	}
 
 	private Vector2 GetTargetGravityDir()
