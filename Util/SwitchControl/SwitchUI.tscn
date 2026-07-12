@@ -1,11 +1,22 @@
 [gd_scene format=3 uid="uid://c2vkx5ok0u4ef"]
 
-[ext_resource type="Script" uid="uid://cfsn8budnm3ax" path="res://Util/SwitchControl/SwitchUi.cs" id="1_5chsk"]
+[ext_resource type="Script" uid="uid://b1safj6q1nabj" path="res://Util/SwitchControl/SwitchUi.cs" id="1_5chsk"]
+[ext_resource type="Texture2D" uid="uid://b1b0e8680y8mq" path="res://Textures/switchcounter.png" id="2_jld8q"]
 
 [node name="SwitchUi" type="CanvasLayer" unique_id=1663141437]
 script = ExtResource("1_5chsk")
 
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=499324190]
+texture_filter = 1
+position = Vector2(1068, 593)
+scale = Vector2(3, 3)
+texture = ExtResource("2_jld8q")
+
 [node name="Label" type="Label" parent="." unique_id=1450932507]
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 1058.0
+offset_top = 572.0
+offset_right = 1122.0
+offset_bottom = 614.0
+pivot_offset = Vector2(32, 21)
+theme_override_font_sizes/font_size = 30
 text = "test!"
