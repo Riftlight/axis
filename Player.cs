@@ -23,10 +23,14 @@ public partial class Player : CharacterBody2D
 	
 	private float _currentYScale = 1f;
 
-	public override void _Ready()
+	private bool switchesLimited;
+
+	public override async void _Ready()
 	{
 		this.TopLevel = true; // render over other things, mostly for arrow
 		this.UpDirection = -_gravityDir;
+
+		switchesLimited = switchCounter != null && switchUi != null;
 
 		_sprite = GetNode<Sprite2D>("Sprite2D"); // todo shift to exported property
 		_spriteSize = _sprite.Scale.X; // should always be a square
@@ -35,8 +39,9 @@ public partial class Player : CharacterBody2D
 		_collCenter = collShape.Position;
 		_collHalfSize = ((RectangleShape2D)collShape.Shape).Size / 2f;
 
-		if (switchUi != null && switchCounter != null)
-			switchUi.UpdateSwitches(switchCounter.GetRemaining());
+		if (!switchesLimited) return;
+		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+		switchUi.UpdateSwitches(switchCounter.Limit);
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -126,20 +131,21 @@ public partial class Player : CharacterBody2D
 	{
 		// todo bad
 		if (@event is InputEventKey eventKey && eventKey.Pressed && !eventKey.Echo)
-			if (eventKey.PhysicalKeycode == Key.Space)
+			if (eventKey.PhysicalKeycode == Key.Space) {
+				if (switchesLimited && switchCounter.GetRemaining() == 0)
+					LevelManager.Instance.RestartLevel();
 				FlipGravity();
+			}
 	}
 
 	private void FlipGravity()
 	{
-		if (switchUi != null && switchCounter != null && switchCounter.GetRemaining() == 0) return;
-
 		Vector2 newDir = GetTargetGravityDir();
 		if (newDir == _gravityDir) return;
 
 		_gravityDir = newDir;
 		UpDirection = -_gravityDir;
-		if (switchUi != null && switchCounter != null)
+		if (switchesLimited)
 		{
 			switchCounter.Switched();
 			switchUi.UpdateSwitches(switchCounter.GetRemaining());
