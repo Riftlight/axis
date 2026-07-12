@@ -3,20 +3,49 @@
 [ext_resource type="PackedScene" uid="uid://c2vkx5ok0u4ef" path="res://Util/SwitchControl/SwitchUI.tscn" id="1_2qv2g"]
 [ext_resource type="PackedScene" uid="uid://dy1twhy7g34ag" path="res://Util/SwitchControl/SwitchCounter.tscn" id="2_0sogr"]
 [ext_resource type="PackedScene" uid="uid://36pgg0xs72pc" path="res://player.tscn" id="3_5brs8"]
+[ext_resource type="Script" uid="uid://cqa1obwnsehtk" path="res://Util/Goal.cs" id="3_qgpl5"]
 [ext_resource type="Script" uid="uid://b14uw8ddioqm3" path="res://Util/RoomBounds.cs" id="4_qgpl5"]
+[ext_resource type="PackedScene" uid="uid://bs8vg87p85m1u" path="res://Util/Block.tscn" id="5_0sogr"]
+[ext_resource type="PackedScene" uid="uid://c6hhn20dott57" path="res://Util/Hazard.tscn" id="7_vgbee"]
 
 [node name="Level4" type="Node2D" unique_id=1444784318]
 
 [node name="SwitchUi" parent="." unique_id=1663141437 instance=ExtResource("1_2qv2g")]
 
 [node name="SwitchCounter" parent="." unique_id=2079933942 instance=ExtResource("2_0sogr")]
-Limit = 10
+Limit = 3
+
+[node name="Area2D2" type="Area2D" parent="." unique_id=920274378]
+position = Vector2(985.99994, 302.00003)
+rotation = 3.14159
+scale = Vector2(8.68647, -1.5353717)
+script = ExtResource("3_qgpl5")
+
+[node name="ColorRect" type="ColorRect" parent="Area2D2" unique_id=722195017]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+scale = Vector2(1, 0.97394687)
+metadata/_edit_use_anchors_ = true
 
 [node name="Player" parent="." unique_id=928024153 node_paths=PackedStringArray("switchCounter", "switchUi") instance=ExtResource("3_5brs8")]
-position = Vector2(95, 71)
+position = Vector2(82, 565)
 switchCounter = NodePath("../SwitchCounter")
 switchUi = NodePath("../SwitchUi")
 
 [node name="RoomBounds" type="Node2D" parent="." unique_id=912340891]
 top_level = true
 script = ExtResource("4_qgpl5")
+
+[node name="StaticBody2D" parent="." unique_id=685338836 instance=ExtResource("5_0sogr")]
+position = Vector2(510, 295)
+scale = Vector2(51.821537, 375.3244)
+
+[node name="StaticBody2D2" parent="." unique_id=1808122870 instance=ExtResource("5_0sogr")]
+position = Vector2(983, 332)
+scale = Vector2(326.33362, 66.52499)
+
+[node name="Area2D" parent="." unique_id=895150877 instance=ExtResource("7_vgbee")]
+position = Vector2(1100.0001, 509)
+scale = Vector2(2.6046848, 11.2230015)

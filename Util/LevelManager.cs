@@ -9,7 +9,8 @@ public partial class LevelManager : Node
 	{
 		"res://Levels/Level1.tscn",
 		"res://Levels/Level2.tscn",
-		"res://Levels/Level3.tscn"
+		"res://Levels/Level3.tscn",
+		"res://Levels/Level4.tscn"
 	};
 
 	private int _currentIndex = 0;
@@ -18,6 +19,7 @@ public partial class LevelManager : Node
 	{
 		Instance = this;
 		LoadLevel(0);
+		// LoadLevel(3);
 	}
 
 	public void LoadNextLevel()
