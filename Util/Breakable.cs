@@ -25,7 +25,6 @@ public partial class Breakable : StaticBody2D
 		float speedTowardDown = playerVelocity.Dot(_downVector);
 		if (speedTowardDown >= SpeedThreshold)
 		{
-			GD.Print(speedTowardDown + " vs threshold of " + SpeedThreshold);
 			this.SetDeferred(PropertyName.Visible, false);
 			this.coll.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 		}
