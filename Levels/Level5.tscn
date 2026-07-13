@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://du0vgk02fcjxc"]
+
+[ext_resource type="Script" uid="uid://b14uw8ddioqm3" path="res://Util/RoomBounds.cs" id="1_uwj6k"]
+[ext_resource type="PackedScene" uid="uid://36pgg0xs72pc" path="res://player.tscn" id="2_3toyu"]
+[ext_resource type="PackedScene" uid="uid://dy1twhy7g34ag" path="res://Util/SwitchControl/SwitchCounter.tscn" id="3_31wo2"]
+[ext_resource type="PackedScene" uid="uid://c6hhn20dott57" path="res://Util/Hazard.tscn" id="3_ioxke"]
+[ext_resource type="PackedScene" uid="uid://bs8vg87p85m1u" path="res://Util/Block.tscn" id="3_pjvod"]
+[ext_resource type="PackedScene" uid="uid://c2vkx5ok0u4ef" path="res://Util/SwitchControl/SwitchUI.tscn" id="4_w1sat"]
+[ext_resource type="Script" uid="uid://cqa1obwnsehtk" path="res://Util/Goal.cs" id="5_f6i8f"]
+[ext_resource type="PackedScene" uid="uid://csuq610a8abg1" path="res://Util/Breakable.tscn" id="6_31wo2"]
+
+[node name="Level5" type="Node2D" unique_id=1199811433]
+
+[node name="RoomBounds" type="Node2D" parent="." unique_id=531441451]
+top_level = true
+script = ExtResource("1_uwj6k")
+
+[node name="Player" parent="." unique_id=53564538 node_paths=PackedStringArray("switchCounter", "switchUi") instance=ExtResource("2_3toyu")]
+position = Vector2(79, 222)
+switchCounter = NodePath("../SwitchCounter")
+switchUi = NodePath("../SwitchUi")
+
+[node name="SwitchUi" parent="." unique_id=1663141437 instance=ExtResource("4_w1sat")]
+
+[node name="SwitchCounter" parent="." unique_id=2125283978 instance=ExtResource("3_31wo2")]
+position = Vector2(79, 222)
+Limit = 5
+
+[node name="Area2D3" parent="." unique_id=26246133 instance=ExtResource("3_ioxke")]
+position = Vector2(1125.0001, 185.00002)
+scale = Vector2(2.841657, 15.578543)
+
+[node name="StaticBody2D" parent="." unique_id=736903535 instance=ExtResource("3_pjvod")]
+position = Vector2(67, 284)
+scale = Vector2(299.86026, -39.241577)
+
+[node name="Area2D" parent="." unique_id=1214253739 instance=ExtResource("3_ioxke")]
+position = Vector2(552, 614)
+scale = Vector2(70.8368, 4.8657007)
+
+[node name="StaticBody2D2" parent="." unique_id=52505692 instance=ExtResource("3_pjvod")]
+position = Vector2(672, 498)
+scale = Vector2(54.673103, 316.45135)
+
+[node name="Area2D2" type="Area2D" parent="." unique_id=254216523]
+position = Vector2(1051, 494.00003)
+rotation = 3.14159
+scale = Vector2(9.92647, -1.5353717)
+script = ExtResource("5_f6i8f")
+
+[node name="ColorRect" type="ColorRect" parent="Area2D2" unique_id=678517587]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+scale = Vector2(1, 0.97394687)
+metadata/_edit_use_anchors_ = true
+
+[node name="Breakable" parent="." unique_id=853436801 instance=ExtResource("6_31wo2")]
+position = Vector2(941, 363)
+scale = Vector2(24.058638, 2.327679)
+SpeedThreshold = 800.0
+
+[node name="StaticBody2D3" parent="." unique_id=1014961444 instance=ExtResource("3_pjvod")]
+position = Vector2(913.00006, 190)
+scale = Vector2(78.61816, -77.164444)
+
+[node name="StaticBody2D4" parent="." unique_id=2031349434 instance=ExtResource("3_pjvod")]
+position = Vector2(435.00003, 36.000015)
+scale = Vector2(78.61816, -77.164444)
