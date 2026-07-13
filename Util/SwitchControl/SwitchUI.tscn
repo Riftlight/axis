@@ -19,4 +19,4 @@ offset_right = 1122.0
 offset_bottom = 614.0
 pivot_offset = Vector2(32, 21)
 theme_override_font_sizes/font_size = 30
-text = "test!"
+text = "you shouldnt see thsi"
