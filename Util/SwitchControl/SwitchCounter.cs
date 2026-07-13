@@ -8,7 +8,7 @@ public partial class SwitchCounter : Node2D
 
 	public int GetRemaining()
 	{
-		return Limit - switches;
+		return Mathf.Max(Limit - switches, 0);
 	}
 
 	public void Switched()
