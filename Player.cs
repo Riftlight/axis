@@ -6,6 +6,7 @@ public partial class Player : CharacterBody2D
 	[Export] public float Friction = 800f;
 	[Export] public float MaxSpeed = 1500f;
 	[Export] public Vector2 BodySize = new Vector2(28, 28);
+	[Export] public Color DeathParticleColor = new Color(49/255f, 102/255f, 198/255f);
 
 	[Export] public SwitchCounter switchCounter;
 	[Export] public SwitchUi switchUi;
@@ -20,9 +21,9 @@ public partial class Player : CharacterBody2D
 	private float _squishY = 1f;
 	private Tween _squishTween;
 	private bool _wasGrounded = false;
-	
 	private float _currentYScale = 1f;
-
+	
+	private bool _isDead = false;
 	private bool switchesLimited;
 
 	public override async void _Ready()
@@ -127,13 +128,29 @@ public partial class Player : CharacterBody2D
 		_squishTween.TweenMethod(Callable.From<float>(v => _squishY = v), _squishY, 1f, 0.5f);
 	}
 
+	public void Die()
+	{
+		if (_isDead) return;
+		_isDead = true;
+
+		this.Visible = false;
+		SetPhysicsProcess(false);
+		SetProcess(false);
+
+		SlimeDeathEffect effect = new();
+		GetTree().CurrentScene.AddChild(effect);
+		
+		effect.GlobalPosition = this.GlobalPosition;
+		effect.Init(_gravityDir, DeathParticleColor, _spriteSize);
+	}
+
 	public override void _Input(InputEvent @event)
 	{
 		// todo bad
 		if (@event is InputEventKey eventKey && eventKey.Pressed && !eventKey.Echo)
 			if (eventKey.PhysicalKeycode == Key.Space) {
 				if (switchesLimited && switchCounter.GetRemaining() == 0)
-					LevelManager.Instance.RestartLevel();
+					Die();
 				FlipGravity();
 			}
 	}

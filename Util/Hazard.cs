@@ -18,7 +18,7 @@ public partial class Hazard : Area2D
 	{
 		if (body is Player player)
 		{
-			LevelManager.Instance.RestartLevel();
+			player.Die();
 		}
 	}
 }
