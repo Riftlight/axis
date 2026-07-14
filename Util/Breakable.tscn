@@ -1,16 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://csuq610a8abg1"]
+[gd_scene format=3 uid="uid://csuq610a8abg1"]
 
-[ext_resource type="Script" path="res://Util/Breakable.cs" id="1_cv8m8"]
+[ext_resource type="Script" uid="uid://xt1230gs4qoa" path="res://Util/Breakable.cs" id="1_cv8m8"]
+[ext_resource type="Texture2D" uid="uid://dvhd2uekpkder" path="res://Textures/Breakable.png" id="2_3lr5a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bvevk"]
 
-[node name="Breakable" type="StaticBody2D"]
+[node name="Breakable" type="StaticBody2D" unique_id=863566668]
 script = ExtResource("1_cv8m8")
+BreakableTexture = ExtResource("2_3lr5a")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=409622293]
 shape = SubResource("RectangleShape2D_bvevk")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=453652986]
+visible = false
 offset_left = -10.0
 offset_top = -10.0
 offset_right = 10.0
