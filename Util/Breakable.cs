@@ -5,6 +5,7 @@ public partial class Breakable : StaticBody2D
 
 	[Export] public float SpeedThreshold = 1000f;
 	[Export] public Texture2D BreakableTexture;
+	[Export] public float PixelScale = 4f;
 
 	private Vector2 _downVector;
 	private CollisionShape2D coll;
@@ -35,15 +36,15 @@ public partial class Breakable : StaticBody2D
 	public override void _Draw()
 	{
 		if (BreakableTexture == null) return;
-
 		CollisionShape2D coll = GetNodeOrNull<CollisionShape2D>("CollisionShape2D");
 		if (coll?.Shape is not RectangleShape2D rect) return; // this will probably happen later, doesnt happen rn
 
-		
+
 		Vector2 worldSize = rect.Size * Scale;
-		DrawSetTransform(Vector2.Zero, 0f, Vector2.One / Scale);
-		DrawTextureRect(BreakableTexture, new Rect2(-worldSize / 2f, worldSize), true);
+		DrawSetTransform(Vector2.Zero, 0f, new Vector2(PixelScale, PixelScale) / Scale);
+		DrawTextureRect(BreakableTexture, new Rect2(-worldSize / (2f * PixelScale), worldSize / PixelScale), tile: true);
 		DrawSetTransform(Vector2.Zero, 0f);
+
 	}
 
 }

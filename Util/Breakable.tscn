@@ -6,6 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bvevk"]
 
 [node name="Breakable" type="StaticBody2D" unique_id=863566668]
+texture_filter = 1
 script = ExtResource("1_cv8m8")
 BreakableTexture = ExtResource("2_3lr5a")
 
