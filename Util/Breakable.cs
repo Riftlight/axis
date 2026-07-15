@@ -39,8 +39,10 @@ public partial class Breakable : StaticBody2D
 		CollisionShape2D coll = GetNodeOrNull<CollisionShape2D>("CollisionShape2D");
 		if (coll?.Shape is not RectangleShape2D rect) return; // this will probably happen later, doesnt happen rn
 
+		
+		Vector2 worldSize = rect.Size * Scale;
 		DrawSetTransform(Vector2.Zero, 0f, Vector2.One / Scale);
-		DrawTextureRect(BreakableTexture, new Rect2(-rect.Size / 2f, rect.Size), true);
+		DrawTextureRect(BreakableTexture, new Rect2(-worldSize / 2f, worldSize), true);
 		DrawSetTransform(Vector2.Zero, 0f);
 	}
 
