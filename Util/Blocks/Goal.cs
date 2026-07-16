@@ -1,3 +1,4 @@
+using System.Threading;
 using Godot;
 
 public partial class Goal : Area2D
@@ -20,7 +21,15 @@ public partial class Goal : Area2D
 
     private void OnBodyEntered(Node2D body)
     {
-        if (body is Player)
-            LevelManager.Instance.LoadNextLevel();
+        if (body is Player player)
+        {
+            player.Visible = false;
+            
+            SlimeFinishEffect sfe = new();
+            GetTree().CurrentScene.AddChild(sfe);
+
+            sfe.GlobalPosition = player.GlobalPosition;
+            sfe.Init(new Color(1.0f, 0.843f, 0f), player.spriteSize);
+        }
     }
 }

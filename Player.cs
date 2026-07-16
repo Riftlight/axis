@@ -13,8 +13,8 @@ public partial class Player : CharacterBody2D
 
 	private Vector2 _gravityDir = Vector2.Down;
 
+	public float spriteSize;
 	private Sprite2D _sprite;
-	private float _spriteSize;
 	private Vector2 _collCenter;
 	private Vector2 _collHalfSize;
 
@@ -34,7 +34,7 @@ public partial class Player : CharacterBody2D
 		switchesLimited = switchCounter != null && switchUi != null;
 
 		_sprite = GetNode<Sprite2D>("Sprite2D"); // todo shift to exported property
-		_spriteSize = _sprite.Scale.X; // should always be a square
+		spriteSize = _sprite.Scale.X; // should always be a square
 
 		CollisionShape2D collShape = GetNode<CollisionShape2D>("CollisionShape2D");
 		_collCenter = collShape.Position;
@@ -99,12 +99,12 @@ public partial class Player : CharacterBody2D
 		float xScale = 1f / yScale;
 
 		_currentYScale = yScale;
-		_sprite.Scale = new Vector2(_spriteSize * xScale, _spriteSize * yScale);
+		_sprite.Scale = new Vector2(spriteSize * xScale, spriteSize * yScale);
 
 		float halfExtent = _collHalfSize.Dot(_gravityDir.Abs());
 		Vector2 floorEdge = _collCenter + _gravityDir * halfExtent;
 		
-		_sprite.Position = floorEdge - _gravityDir * ((_spriteSize/2*16) * yScale);
+		_sprite.Position = floorEdge - _gravityDir * ((spriteSize/2*16) * yScale);
 
 	}
 
@@ -141,7 +141,7 @@ public partial class Player : CharacterBody2D
 		GetTree().CurrentScene.AddChild(effect);
 		
 		effect.GlobalPosition = this.GlobalPosition;
-		effect.Init(_gravityDir, DeathParticleColor, _spriteSize);
+		effect.Init(_gravityDir, DeathParticleColor, spriteSize);
 	}
 
 	public override void _Input(InputEvent @event)
@@ -195,9 +195,9 @@ public partial class Player : CharacterBody2D
 		else 
 		{
 			hangPx = 7f * (1f / _currentYScale);
-			arrowOrigin = _sprite.Position + _gravityDir * (2.5f * _spriteSize); // 2.5f being the offset from tex center to visual slime center
+			arrowOrigin = _sprite.Position + _gravityDir * (2.5f * spriteSize); // 2.5f being the offset from tex center to visual slime center
 		}
-		Vector2 start = arrowOrigin + dir * (hangPx*_spriteSize);
+		Vector2 start = arrowOrigin + dir * (hangPx*spriteSize);
 		Vector2 tip = start + dir * 30f;
 		
 		Color arrowColor = new Color(1f, 0.9f, 0.2f);
