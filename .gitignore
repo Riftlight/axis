@@ -4,6 +4,7 @@
 addons/
 
 .stfolder/
+.stignore
 
 *.old
 
