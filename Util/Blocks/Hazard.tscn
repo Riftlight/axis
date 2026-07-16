@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://c6hhn20dott57"]
+
+[ext_resource type="Script" uid="uid://d052bh3ndyco0" path="res://Util/Blocks/Hazard.cs" id="1_1ev1e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a1gpt"]
+
+[node name="Area2D" type="Area2D" unique_id=2061966167]
+script = ExtResource("1_1ev1e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1282900371]
+shape = SubResource("RectangleShape2D_a1gpt")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=101471380]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+color = Color(1, 0, 0, 1)
