@@ -15,8 +15,10 @@
 top_level = true
 script = ExtResource("1_uwj6k")
 
-[node name="Player" parent="." unique_id=53564538 instance=ExtResource("2_3toyu")]
+[node name="Player" parent="." unique_id=53564538 node_paths=PackedStringArray("switchCounter", "switchUi") instance=ExtResource("2_3toyu")]
 position = Vector2(79, 222)
+switchCounter = NodePath("../SwitchCounter")
+switchUi = NodePath("../SwitchUi")
 
 [node name="SwitchUi" parent="." unique_id=1663141437 instance=ExtResource("4_w1sat")]
 
