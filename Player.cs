@@ -23,6 +23,7 @@ public partial class Player : CharacterBody2D
 	private bool _wasGrounded = false;
 	private float _currentYScale = 1f;
 	
+	public bool Frozen = false;
 	private bool _isDead = false;
 	private bool switchesLimited;
 
@@ -47,6 +48,8 @@ public partial class Player : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
+		if (Frozen) return;
+
 		Velocity += _gravityDir * GravityStrength * (float)delta;
 		Velocity = Velocity.LimitLength(MaxSpeed);
 		

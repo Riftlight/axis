@@ -24,6 +24,7 @@ public partial class Goal : Area2D
         if (body is Player player)
         {
             player.Visible = false;
+            player.Frozen = true;
             
             SlimeFinishEffect sfe = new();
             GetTree().CurrentScene.AddChild(sfe);
