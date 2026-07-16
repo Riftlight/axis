@@ -1,54 +1,54 @@
-[gd_scene load_steps=6 format=3 uid="uid://cptdnvovmd6jv"]
+[gd_scene format=3 uid="uid://cptdnvovmd6jv"]
 
-[ext_resource type="Script" path="res://Util/RoomBounds.cs" id="1_pahcr"]
-[ext_resource type="PackedScene" uid="uid://c6hhn20dott57" path="res://Util/Hazard.tscn" id="2_4i64l"]
-[ext_resource type="PackedScene" uid="uid://bs8vg87p85m1u" path="res://Util/Block.tscn" id="2_lfoft"]
+[ext_resource type="Script" uid="uid://b14uw8ddioqm3" path="res://Util/Blocks/RoomBounds.cs" id="1_pahcr"]
+[ext_resource type="PackedScene" uid="uid://c6hhn20dott57" path="res://Util/Blocks/Hazard.tscn" id="2_4i64l"]
+[ext_resource type="PackedScene" uid="uid://bs8vg87p85m1u" path="res://Util/Blocks/Block.tscn" id="2_lfoft"]
 [ext_resource type="PackedScene" uid="uid://36pgg0xs72pc" path="res://player.tscn" id="4_6i7mb"]
-[ext_resource type="Script" path="res://Util/Goal.cs" id="5_8nbtc"]
+[ext_resource type="Script" uid="uid://cqa1obwnsehtk" path="res://Util/Blocks/Goal.cs" id="5_8nbtc"]
 
-[node name="Level2" type="Node2D"]
+[node name="Level2" type="Node2D" unique_id=1898978038]
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Node2D" type="Node2D" parent="." unique_id=2064661012]
 top_level = true
 script = ExtResource("1_pahcr")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=2117878531]
 position = Vector2(1096, 418)
 rotation = 3.14159
 scale = Vector2(1.53622, -4.05189)
 script = ExtResource("5_8nbtc")
 
-[node name="ColorRect" type="ColorRect" parent="Area2D"]
+[node name="ColorRect" type="ColorRect" parent="Area2D" unique_id=504788678]
 offset_left = -16.0
 offset_top = -16.0
 offset_right = 16.0
 offset_bottom = 16.0
 metadata/_edit_use_anchors_ = true
 
-[node name="bottomhazard" parent="." instance=ExtResource("2_4i64l")]
+[node name="bottomhazard" parent="." unique_id=936286777 instance=ExtResource("2_4i64l")]
 position = Vector2(581, 607)
 scale = Vector2(30, 1)
 
-[node name="bottomhazard2" parent="." instance=ExtResource("2_4i64l")]
+[node name="bottomhazard2" parent="." unique_id=1695546101 instance=ExtResource("2_4i64l")]
 position = Vector2(682, 254)
 rotation = 1.5708
 scale = Vector2(9, 1)
 
-[node name="StaticBody2D" parent="." instance=ExtResource("2_lfoft")]
+[node name="StaticBody2D" parent="." unique_id=1487523938 instance=ExtResource("2_lfoft")]
 position = Vector2(254, 391)
 scale = Vector2(455.283, 459.937)
 
-[node name="StaticBody2D2" parent="." instance=ExtResource("2_lfoft")]
+[node name="StaticBody2D2" parent="." unique_id=436478909 instance=ExtResource("2_lfoft")]
 position = Vector2(909, 195)
 scale = Vector2(435.151, 327.684)
 
-[node name="StaticBody2D3" parent="." instance=ExtResource("2_lfoft")]
+[node name="StaticBody2D3" parent="." unique_id=124836774 instance=ExtResource("2_lfoft")]
 position = Vector2(909, 195)
 scale = Vector2(435.151, 327.684)
 
-[node name="StaticBody2D4" parent="." instance=ExtResource("2_lfoft")]
+[node name="StaticBody2D4" parent="." unique_id=1556546025 instance=ExtResource("2_lfoft")]
 position = Vector2(909, 646)
 scale = Vector2(435.151, 327.684)
 
-[node name="Player" parent="." instance=ExtResource("4_6i7mb")]
+[node name="Player" parent="." unique_id=659930216 instance=ExtResource("4_6i7mb")]
 position = Vector2(47, 146)

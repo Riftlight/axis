@@ -3,10 +3,10 @@
 [ext_resource type="PackedScene" uid="uid://c2vkx5ok0u4ef" path="res://Util/SwitchControl/SwitchUI.tscn" id="1_2qv2g"]
 [ext_resource type="PackedScene" uid="uid://dy1twhy7g34ag" path="res://Util/SwitchControl/SwitchCounter.tscn" id="2_0sogr"]
 [ext_resource type="PackedScene" uid="uid://36pgg0xs72pc" path="res://player.tscn" id="3_5brs8"]
-[ext_resource type="Script" uid="uid://cqa1obwnsehtk" path="res://Util/Goal.cs" id="3_qgpl5"]
-[ext_resource type="Script" uid="uid://b14uw8ddioqm3" path="res://Util/RoomBounds.cs" id="4_qgpl5"]
-[ext_resource type="PackedScene" uid="uid://bs8vg87p85m1u" path="res://Util/Block.tscn" id="5_0sogr"]
-[ext_resource type="PackedScene" uid="uid://c6hhn20dott57" path="res://Util/Hazard.tscn" id="7_vgbee"]
+[ext_resource type="Script" uid="uid://cqa1obwnsehtk" path="res://Util/Blocks/Goal.cs" id="3_qgpl5"]
+[ext_resource type="Script" uid="uid://b14uw8ddioqm3" path="res://Util/Blocks/RoomBounds.cs" id="4_qgpl5"]
+[ext_resource type="PackedScene" uid="uid://bs8vg87p85m1u" path="res://Util/Blocks/Block.tscn" id="5_0sogr"]
+[ext_resource type="PackedScene" uid="uid://c6hhn20dott57" path="res://Util/Blocks/Hazard.tscn" id="7_vgbee"]
 
 [node name="Level4" type="Node2D" unique_id=1444784318]
 

@@ -1,36 +1,36 @@
-[gd_scene load_steps=5 format=3 uid="uid://xhndlis07cyj"]
+[gd_scene format=3 uid="uid://xhndlis07cyj"]
 
 [ext_resource type="PackedScene" uid="uid://36pgg0xs72pc" path="res://player.tscn" id="1_nt168"]
-[ext_resource type="Script" path="res://Util/RoomBounds.cs" id="2_atacy"]
-[ext_resource type="PackedScene" uid="uid://bs8vg87p85m1u" path="res://Util/Block.tscn" id="3_r0hij"]
-[ext_resource type="Script" path="res://Util/Goal.cs" id="4_s7sxb"]
+[ext_resource type="Script" uid="uid://b14uw8ddioqm3" path="res://Util/Blocks/RoomBounds.cs" id="2_atacy"]
+[ext_resource type="PackedScene" uid="uid://bs8vg87p85m1u" path="res://Util/Blocks/Block.tscn" id="3_r0hij"]
+[ext_resource type="Script" uid="uid://cqa1obwnsehtk" path="res://Util/Blocks/Goal.cs" id="4_s7sxb"]
 
-[node name="Level1" type="Node2D"]
+[node name="Level1" type="Node2D" unique_id=1247302919]
 
-[node name="RoomBounds" type="Node2D" parent="."]
+[node name="RoomBounds" type="Node2D" parent="." unique_id=535008582]
 top_level = true
 script = ExtResource("2_atacy")
 
-[node name="leftwall" parent="." instance=ExtResource("3_r0hij")]
+[node name="leftwall" parent="." unique_id=516760245 instance=ExtResource("3_r0hij")]
 position = Vector2(394, 241)
 scale = Vector2(727.622, 421.525)
 
-[node name="rightwall" parent="." instance=ExtResource("3_r0hij")]
+[node name="rightwall" parent="." unique_id=1837944006 instance=ExtResource("3_r0hij")]
 position = Vector2(1025, 389)
 scale = Vector2(190.571, 454.316)
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=744340087]
 position = Vector2(1096, 97)
 rotation = 3.14159
 scale = Vector2(1.53622, -4.05189)
 script = ExtResource("4_s7sxb")
 
-[node name="ColorRect" type="ColorRect" parent="Area2D"]
+[node name="ColorRect" type="ColorRect" parent="Area2D" unique_id=1588739567]
 offset_left = -16.0
 offset_top = -16.0
 offset_right = 16.0
 offset_bottom = 16.0
 metadata/_edit_use_anchors_ = true
 
-[node name="Player" parent="." instance=ExtResource("1_nt168")]
+[node name="Player" parent="." unique_id=798782949 instance=ExtResource("1_nt168")]
 position = Vector2(64.0001, 581)
