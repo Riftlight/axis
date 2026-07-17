@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://btp08vwedmqvh"]
+
+[ext_resource type="Script" uid="uid://d1met66fnwqve" path="res://Util/Timer/Timer.cs" id="1_wqqm1"]
+
+[node name="Timer" type="CanvasLayer" unique_id=169696232]
+layer = 127
+
+[node name="Label" type="Label" parent="." unique_id=1353880710]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -125.0
+offset_right = 125.0
+offset_bottom = 75.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+script = ExtResource("1_wqqm1")

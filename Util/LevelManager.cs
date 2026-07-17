@@ -40,4 +40,9 @@ public partial class LevelManager : Node
 		_currentIndex = Mathf.Clamp(index, 0, _levels.Length - 1);
 		GetTree().ChangeSceneToFile(_levels[_currentIndex]);
 	}
+
+	public int GetLevelIndex()
+	{
+		return _currentIndex;
+	}
 }

@@ -25,6 +25,9 @@ public partial class Goal : Area2D
         {
             player.Visible = false;
             player.Frozen = true;
+
+            int levelid = LevelManager.Instance.GetLevelIndex();
+            Timer.LevelComplete(levelid);
             
             SlimeFinishEffect sfe = new();
             GetTree().CurrentScene.AddChild(sfe);
