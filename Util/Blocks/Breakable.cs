@@ -30,6 +30,12 @@ public partial class Breakable : StaticBody2D
 		{
 			this.SetDeferred(PropertyName.Visible, false);
 			this.coll.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
+
+			BreakableBreakEffect bfe = new();
+			GetTree().CurrentScene.AddChild(bfe);
+
+			bfe.GlobalPosition = this.GlobalPosition;
+			bfe.Init(this, new Color("#424252"));
 		}
 	}
 
