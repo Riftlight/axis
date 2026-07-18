@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using Godot;
 
 public partial class Player : CharacterBody2D
@@ -18,6 +19,11 @@ public partial class Player : CharacterBody2D
 	private bool _isHolding;
 	private bool _hasExploded = false;
 
+	private ColorRect _vignetteRect;
+	private ShaderMaterial _vignetteMat;
+	private float _vignetteTime;
+	private Camera2D _camera;
+	private Vector2 _cameraBaseZoom = Vector2.One;
 
 	public float spriteSize;
 	private Sprite2D _sprite;
@@ -47,11 +53,135 @@ public partial class Player : CharacterBody2D
 		_collCenter = collShape.Position;
 		_collHalfSize = ((RectangleShape2D)collShape.Shape).Size / 2f;
 
+		InitHoldEffect();
+
 		if (!switchesLimited) return;
 		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 		switchUi.UpdateSwitches(switchCounter.Limit);
 	}
 
+	#region key handling, hold to restart logic
+	public override void _Process(double delta)
+	{
+		// keypress stuff
+		if (Input.IsActionJustPressed("Button"))
+		{
+			// flip
+			if (switchesLimited && switchCounter.GetRemaining() == 0)
+				Die();
+			FlipGravity();
+
+			_isHolding = true;
+			_holdTime = 0.0f;
+			_hasExploded = false;
+		}
+		if (_isHolding && Input.IsActionPressed("Button"))
+		{
+			_holdTime += (float)delta;
+			UpdateHoldEffect(_holdTime / DeathHoldThreshold, (float)delta);
+
+			// todo scale up or some visual indicator
+
+			if (_holdTime >= DeathHoldThreshold && !_hasExploded)
+			{
+				_hasExploded = true;
+				_isHolding = false;
+				Die();
+			}
+		}
+		if (Input.IsActionJustReleased("Button"))
+		{
+			_isHolding = false;
+			ClearHoldEffect();
+		}
+
+		if (Input.IsActionJustPressed("Menu"))
+			GetTree().ChangeSceneToFile("res://MainMenu.tscn");
+
+		UpdateSprite();
+		QueueRedraw(); // todo?
+	}
+
+	private void InitHoldEffect()
+	{
+		_camera = new Camera2D { Enabled = false };
+		AddChild(_camera);
+		_cameraBaseZoom = _camera.Zoom;
+
+		Shader shader = new() { Code = VignetteShader };
+		_vignetteMat = new ShaderMaterial { Shader = shader };
+
+		_vignetteRect = new ColorRect
+		{
+			AnchorRight = 1f,
+			AnchorBottom = 1f,
+			MouseFilter = Control.MouseFilterEnum.Ignore,
+			Material = _vignetteMat,
+			Visible = false
+		};
+
+		CanvasLayer layer = new() { Layer = 50 };
+		AddChild(layer);
+		layer.AddChild(_vignetteRect);
+	}
+
+	private void UpdateHoldEffect(float rawT, float dt)
+	{
+		const float DeadZone = 0.2f;
+		if (rawT < DeadZone) return;
+		float t = (rawT - DeadZone) / (1f - DeadZone);
+
+		_vignetteTime += dt;
+		_vignetteRect.Visible = true;
+		_vignetteMat.SetShaderParameter("progress", t);
+		_vignetteMat.SetShaderParameter("time", _vignetteTime);
+
+		if (_camera == null)
+		{
+			_camera = GetViewport().GetCamera2D();
+			if (_camera != null) _cameraBaseZoom = _camera.Zoom;
+		}
+		if (_camera != null) {
+			_camera.Enabled = true;
+			_camera.Zoom = _cameraBaseZoom * Mathf.Lerp(1f, 1.3f, Mathf.SmoothStep(0f, 1f, t));
+		}
+	}
+
+	public void ClearHoldEffect()
+	{
+		_vignetteTime = 0f;
+		if (_vignetteRect != null) _vignetteRect.Visible = false;
+		if (_camera != null) { 
+			_camera.Enabled = false;
+			_camera.Zoom = _cameraBaseZoom;
+		}
+	}
+
+	private const string VignetteShader = @"
+	shader_type canvas_item;
+	uniform float progress : hint_range(0.0, 1.0) = 0.0;
+	uniform float time = 0.0;
+
+	void fragment() {
+		vec2 uv = UV - vec2(0.5);
+		float dist = length(uv);
+
+		// ring closes inward
+		float inner = 0.5 - progress * 0.32;
+		float outer = inner + 0.22;
+
+		// pulse rate accelerates
+		float pulse = sin(time * (4.0 + progress * 12.0)) * 0.018 * progress;
+
+		float vignette = smoothstep(inner + pulse, outer, dist);
+
+		vec3 col = mix(vec3(0.0), vec3(0.55, 0.0, 0.0), progress);
+		COLOR = vec4(col, clamp(vignette * progress * 1.5, 0.0, 0.9));
+	}
+	";
+	#endregion
+
+	#region movement
 	public override void _PhysicsProcess(double delta)
 	{
 		if (Frozen) return;
@@ -83,45 +213,6 @@ public partial class Player : CharacterBody2D
 		if (grounded && !_wasGrounded)
 			LandingSquish(preSlideVelocity.Dot(_gravityDir));
 		_wasGrounded = grounded;
-	}
-
-	public override void _Process(double delta)
-	{
-		// keypress stuff
-		if (Input.IsActionJustPressed("Button"))
-		{
-			// flip
-			if (switchesLimited && switchCounter.GetRemaining() == 0)
-				Die();
-			FlipGravity();
-
-			_isHolding = true;
-			_holdTime = 0.0f;
-			_hasExploded = false;
-		}
-		if (_isHolding && Input.IsActionPressed("Button"))
-		{
-			_holdTime += (float)delta;
-
-			// todo scale up or some visual indicator
-
-			if (_holdTime >= DeathHoldThreshold && !_hasExploded)
-			{
-				_hasExploded = true;
-				_isHolding = false;
-				Die();
-			}
-		}
-		if (Input.IsActionJustReleased("Button"))
-		{
-			_isHolding = false;
-		}
-
-		if (Input.IsActionJustPressed("Menu"))
-			GetTree().ChangeSceneToFile("res://MainMenu.tscn");
-
-		UpdateSprite();
-		QueueRedraw(); // todo?
 	}
 
 	private void UpdateSprite()
@@ -170,22 +261,6 @@ public partial class Player : CharacterBody2D
 		_squishTween.TweenMethod(Callable.From<float>(v => _squishY = v), _squishY, 1f, 0.5f);
 	}
 
-	public void Die()
-	{
-		if (_isDead) return;
-		_isDead = true;
-
-		this.Visible = false;
-		SetPhysicsProcess(false);
-		SetProcess(false);
-
-		SlimeDeathEffect effect = new();
-		GetTree().CurrentScene.AddChild(effect);
-		
-		effect.GlobalPosition = this.GlobalPosition;
-		effect.Init(_gravityDir, DeathParticleColor, spriteSize);
-	}
-
 	private void FlipGravity()
 	{
 		Vector2 newDir = GetTargetGravityDir();
@@ -199,6 +274,25 @@ public partial class Player : CharacterBody2D
 			switchCounter.Switched();
 			switchUi.UpdateSwitches(switchCounter.GetRemaining());
 		}
+	}
+	#endregion
+
+	public void Die()
+	{
+		ClearHoldEffect();
+
+		if (_isDead) return;
+		_isDead = true;
+
+		this.Visible = false;
+		SetPhysicsProcess(false);
+		SetProcess(false);
+
+		SlimeDeathEffect effect = new();
+		GetTree().CurrentScene.AddChild(effect);
+		
+		effect.GlobalPosition = this.GlobalPosition;
+		effect.Init(_gravityDir, DeathParticleColor, spriteSize);
 	}
 
 	private Vector2 GetTargetGravityDir()
