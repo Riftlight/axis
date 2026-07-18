@@ -190,6 +190,7 @@ public partial class Player : CharacterBody2D
 	{
 		Vector2 newDir = GetTargetGravityDir();
 		if (newDir == _gravityDir) return;
+		if (!Timer.Instance.Started) Timer.Instance.Start();
 
 		_gravityDir = newDir;
 		UpDirection = -_gravityDir;

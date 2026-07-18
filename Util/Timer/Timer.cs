@@ -7,6 +7,7 @@ public partial class Timer : Label
 
 	private float _elapsedTime = 0;
 	private bool _stopped = false;
+	public bool Started { get; private set; } = false;
 
 	public override void _Ready()
 	{
@@ -15,7 +16,7 @@ public partial class Timer : Label
 
 	public override void _Process(double delta)
 	{
-		if (_stopped) return;
+		if (_stopped || !Started) return;
 		_elapsedTime += (float)delta;
 
 		int mins = Mathf.FloorToInt(_elapsedTime / 60);
@@ -26,6 +27,11 @@ public partial class Timer : Label
 			this.Text = $"{secs:D2}.{millis:D2}";
 		else
 			this.Text = $"{mins:D2}:{secs:D2}.{millis:D2}";
+	}
+
+	public void Start()
+	{
+		Started = true;
 	}
 
 	public static void LevelComplete(int levelIndex)
