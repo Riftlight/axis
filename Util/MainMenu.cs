@@ -140,8 +140,8 @@ public partial class MainMenu : Control
 		int secs = Mathf.FloorToInt(t % 60);
 		int millis = Mathf.FloorToInt((t % 1) * 100);
 		return mins == 0
-			? $"{secs:D2}.{millis:D3}"
-			: $"{mins:D2}:{secs:D2}.{millis:D3}";
+			? $"{secs:D2}.{millis:D2}"
+			: $"{mins:D2}:{secs:D2}.{millis:D2}";
 	}
 
 	private static Control Spacer(float w, float h) => new Control { CustomMinimumSize = new Vector2(w,h) };
