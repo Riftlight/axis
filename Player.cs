@@ -99,7 +99,6 @@ public partial class Player : CharacterBody2D
 			_holdTime = 0.0f;
 			_hasExploded = false;
 		}
-
 		if (_isHolding && Input.IsActionPressed("Button"))
 		{
 			_holdTime += (float)delta;
@@ -113,11 +112,13 @@ public partial class Player : CharacterBody2D
 				Die();
 			}
 		}
-
 		if (Input.IsActionJustReleased("Button"))
 		{
 			_isHolding = false;
 		}
+
+		if (Input.IsActionJustPressed("Menu"))
+			GetTree().ChangeSceneToFile("res://MainMenu.tscn");
 
 		UpdateSprite();
 		QueueRedraw(); // todo?
@@ -184,19 +185,6 @@ public partial class Player : CharacterBody2D
 		effect.GlobalPosition = this.GlobalPosition;
 		effect.Init(_gravityDir, DeathParticleColor, spriteSize);
 	}
-
-	// public override void _Input(InputEvent @event)
-	// {
-	// 	if (@event.IsActionPressed("Button"))
-	// 	{
-	// 		if (switchesLimited && switchCounter.GetRemaining() == 0)
-	// 			Die();
-	// 		FlipGravity();
-	// 	}
-	// 	else if (@event.IsActionPressed("Menu"))
-	// 		GetTree().ChangeSceneToFile("res://MainMenu.tscn");
-		
-	// }
 
 	private void FlipGravity()
 	{
