@@ -30,7 +30,9 @@ public partial class Timer : Label
 
 	public static void LevelComplete(int levelIndex)
 	{
-		Instance?.Stop();
+		if (Instance == null) return;
+		Instance.UpdateTime(""+levelIndex, Instance._elapsedTime);
+		Instance.Stop();
 	}
 
 	private void Stop()
@@ -52,7 +54,7 @@ public partial class Timer : Label
 				timeData = (Dictionary<string,float>)readFile.GetVar();
 		}
 
-		if (time >= timeData[levelId]) return;
+		if (timeData.TryGetValue(levelId, out float existing) && time >= existing) return;
 		timeData[levelId] = time;
 
 		using var writeFile = FileAccess.OpenEncryptedWithPass(savePath, FileAccess.ModeFlags.Write, encryptionKey);
