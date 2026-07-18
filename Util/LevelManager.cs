@@ -19,8 +19,7 @@ public partial class LevelManager : Node
 	public override void _Ready()
 	{
 		Instance = this;
-		LoadLevel(0);
-		// LoadLevel(4);
+		GetTree().ChangeSceneToFile("res://MainMenu.tscn");
 	}
 
 	public void LoadNextLevel()

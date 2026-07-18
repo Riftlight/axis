@@ -23,15 +23,15 @@ public partial class Timer : Label
 		int millis = Mathf.FloorToInt((_elapsedTime % 1) * 100);
 
 		if (mins == 0)
-			this.Text = $"{secs:D2}.{millis:D3}";
+			this.Text = $"{secs:D2}.{millis:D2}";
 		else
-			this.Text = $"{mins:D2}:{secs:D2}.{millis:D3}";
+			this.Text = $"{mins:D2}:{secs:D2}.{millis:D2}";
 	}
 
 	public static void LevelComplete(int levelIndex)
 	{
 		if (Instance == null) return;
-		Instance.UpdateTime(""+levelIndex, Instance._elapsedTime);
+		Instance.UpdateTime("Level"+(levelIndex+1), Instance._elapsedTime);
 		Instance.Stop();
 	}
 

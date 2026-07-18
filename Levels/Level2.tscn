@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://cptdnvovmd6jv"]
 
+[ext_resource type="PackedScene" uid="uid://btp08vwedmqvh" path="res://Util/Timer/Timer.tscn" id="1_jglcl"]
 [ext_resource type="Script" uid="uid://b14uw8ddioqm3" path="res://Util/Blocks/RoomBounds.cs" id="1_pahcr"]
 [ext_resource type="PackedScene" uid="uid://c6hhn20dott57" path="res://Util/Blocks/Hazard.tscn" id="2_4i64l"]
 [ext_resource type="PackedScene" uid="uid://bs8vg87p85m1u" path="res://Util/Blocks/Block.tscn" id="2_lfoft"]
@@ -7,6 +8,8 @@
 [ext_resource type="Script" uid="uid://cqa1obwnsehtk" path="res://Util/Blocks/Goal.cs" id="5_8nbtc"]
 
 [node name="Level2" type="Node2D" unique_id=1898978038]
+
+[node name="Timer" parent="." unique_id=169696232 instance=ExtResource("1_jglcl")]
 
 [node name="Node2D" type="Node2D" parent="." unique_id=2064661012]
 top_level = true
