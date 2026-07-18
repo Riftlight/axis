@@ -13,6 +13,12 @@ public partial class Player : CharacterBody2D
 
 	private Vector2 _gravityDir = Vector2.Down;
 
+	private const float DeathHoldThreshold = 1.25f;
+	private float _holdTime = 0.5f;
+	private bool _isHolding;
+	private bool _hasExploded = false;
+
+
 	public float spriteSize;
 	private Sprite2D _sprite;
 	private Vector2 _collCenter;
@@ -81,8 +87,40 @@ public partial class Player : CharacterBody2D
 
 	public override void _Process(double delta)
 	{
+		// keypress stuff
+		if (Input.IsActionJustPressed("Button"))
+		{
+			// flip
+			if (switchesLimited && switchCounter.GetRemaining() == 0)
+				Die();
+			FlipGravity();
+
+			_isHolding = true;
+			_holdTime = 0.0f;
+			_hasExploded = false;
+		}
+
+		if (_isHolding && Input.IsActionPressed("Button"))
+		{
+			_holdTime += (float)delta;
+
+			// todo scale up or some visual indicator
+
+			if (_holdTime >= DeathHoldThreshold && !_hasExploded)
+			{
+				_hasExploded = true;
+				_isHolding = false;
+				Die();
+			}
+		}
+
+		if (Input.IsActionJustReleased("Button"))
+		{
+			_isHolding = false;
+		}
+
 		UpdateSprite();
-		QueueRedraw(); // todo
+		QueueRedraw(); // todo?
 	}
 
 	private void UpdateSprite()
@@ -147,16 +185,18 @@ public partial class Player : CharacterBody2D
 		effect.Init(_gravityDir, DeathParticleColor, spriteSize);
 	}
 
-	public override void _Input(InputEvent @event)
-	{
-		// todo bad
-		if (@event is InputEventKey eventKey && eventKey.Pressed && !eventKey.Echo)
-			if (eventKey.PhysicalKeycode == Key.Space) {
-				if (switchesLimited && switchCounter.GetRemaining() == 0)
-					Die();
-				FlipGravity();
-			}
-	}
+	// public override void _Input(InputEvent @event)
+	// {
+	// 	if (@event.IsActionPressed("Button"))
+	// 	{
+	// 		if (switchesLimited && switchCounter.GetRemaining() == 0)
+	// 			Die();
+	// 		FlipGravity();
+	// 	}
+	// 	else if (@event.IsActionPressed("Menu"))
+	// 		GetTree().ChangeSceneToFile("res://MainMenu.tscn");
+		
+	// }
 
 	private void FlipGravity()
 	{
