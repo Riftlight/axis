@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 using Godot;
 
@@ -14,7 +15,7 @@ public partial class Player : CharacterBody2D
 
 	private Vector2 _gravityDir = Vector2.Down;
 
-	private const float DeathHoldThreshold = 1.25f;
+	private const float DeathHoldThreshold = 1.5f;
 	private float _holdTime = 0.5f;
 	private bool _isHolding;
 	private bool _hasExploded = false;
@@ -75,12 +76,10 @@ public partial class Player : CharacterBody2D
 			_holdTime = 0.0f;
 			_hasExploded = false;
 		}
-		if (_isHolding && Input.IsActionPressed("Button"))
+		if (_isHolding && Input.IsActionPressed("Button") && Mathf.Abs(Velocity.Length()) < 0.002)
 		{
 			_holdTime += (float)delta;
 			UpdateHoldEffect(_holdTime / DeathHoldThreshold, (float)delta);
-
-			// todo scale up or some visual indicator
 
 			if (_holdTime >= DeathHoldThreshold && !_hasExploded)
 			{
@@ -136,7 +135,7 @@ public partial class Player : CharacterBody2D
 		_vignetteMat.SetShaderParameter("progress", t);
 		_vignetteMat.SetShaderParameter("time", _vignetteTime);
 
-		if (_camera == null)
+		if (_camera == null) // this is sort of a holdover from a previous zoom handling but im too scared to delete it
 		{
 			_camera = GetViewport().GetCamera2D();
 			if (_camera != null) _cameraBaseZoom = _camera.Zoom;
@@ -144,6 +143,13 @@ public partial class Player : CharacterBody2D
 		if (_camera != null) {
 			_camera.Enabled = true;
 			_camera.Zoom = _cameraBaseZoom * Mathf.Lerp(1f, 1.3f, Mathf.SmoothStep(0f, 1f, t));
+
+			const float maxShake = 14f;
+			float shakeAmt = t*t * maxShake;
+			_camera.Offset = new Vector2(
+				Mathf.Sin(_vignetteTime * Mathf.Lerp(8f, 24f, t)) * shakeAmt,
+				Mathf.Sin(_vignetteTime * Mathf.Lerp(11f, 30f, t) + 1.3f) * shakeAmt
+			);
 		}
 	}
 
@@ -154,6 +160,7 @@ public partial class Player : CharacterBody2D
 		if (_camera != null) { 
 			_camera.Enabled = false;
 			_camera.Zoom = _cameraBaseZoom;
+			_camera.Offset = Vector2.Zero;
 		}
 	}
 
@@ -175,7 +182,7 @@ public partial class Player : CharacterBody2D
 
 		float vignette = smoothstep(inner + pulse, outer, dist);
 
-		vec3 col = mix(vec3(0.0), vec3(0.55, 0.0, 0.0), progress);
+		vec3 col = mix(vec3(0.0), vec3(0.25, 0.0, 0.0), progress);
 		COLOR = vec4(col, clamp(vignette * progress * 1.5, 0.0, 0.9));
 	}
 	";
