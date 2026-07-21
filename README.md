@@ -7,3 +7,8 @@ This is my first project made in Godot, and i'm sure i choose poor implementatio
 Place your mouse cursor relative to the character in the direction you want to go, and press Space to shift your gravity to that direction.
 Press Esc to return to the main menu (i know, not one key, but i couldn't think of any better way!)
 Hold Space while unmoving to restart a level. Remember, the level timer only starts after your first movement!
+
+# Showcase
+
+https://github.com/user-attachments/assets/0c17308a-844a-4a53-8482-4dec3043fff6
+
