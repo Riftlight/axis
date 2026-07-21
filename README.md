@@ -12,3 +12,5 @@ Hold Space while unmoving to restart a level. Remember, the level timer only sta
 
 https://github.com/user-attachments/assets/0c17308a-844a-4a53-8482-4dec3043fff6
 
+# Download
+Go to the [releases](https://github.com/Riftlight/axis/releases) page. Download and unzip the version for your platform, then simply execute the executable (.app for Mac, .exe for Windows, binary for Linux) in the newly unzipped folder.
